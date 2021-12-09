@@ -6,5 +6,6 @@ namespace Demo.Dal.Books
     {
         IEnumerable<Book> GetAllBooks();
         Book GetBook(int id);
+        void CreateBook(Book book);
     }
 }

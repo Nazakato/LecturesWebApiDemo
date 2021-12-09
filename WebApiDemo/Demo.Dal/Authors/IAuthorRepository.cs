@@ -6,5 +6,6 @@ namespace Demo.Dal.Authors
     {
         IEnumerable<Author> GetAllAuthors();
         Author GetAuthor(int id);
+        void CreateAuthor(Author author);
     }
 }

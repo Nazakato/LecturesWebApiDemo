@@ -19,5 +19,26 @@ namespace WebApiDemo.Controllers
         {
             return Ok(_authorRepository.GetAllAuthors());
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_authorRepository.GetAuthor(id));
+        }
+
+        [HttpGet("create")]
+        public IActionResult Create([FromQuery]int id, [FromQuery]string name)
+        {
+            try
+            {
+                _authorRepository.CreateAuthor(new Author { Id = id, Name = name });
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+                return BadRequest(new { id, name });
+            }
+        }
     }
 }
