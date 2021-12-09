@@ -1,8 +1,10 @@
 ﻿using Demo.Dal.Authors;
 using Microsoft.AspNetCore.Mvc;
+using WebApiDemo.Filters;
 
 namespace WebApiDemo.Controllers
 {
+    [CustomExceptionFilter]
     [ApiController]
     [Route("[controller]")]
     public class AuthorController : Controller
@@ -30,15 +32,8 @@ namespace WebApiDemo.Controllers
         [HttpGet("create")]
         public IActionResult Create([FromQuery]int id, [FromQuery]string name)
         {
-            try
-            {
-                _authorRepository.CreateAuthor(new Author { Id = id, Name = name });
-                return Ok();
-            }
-            catch (System.Exception)
-            {
-                return BadRequest(new { id, name });
-            }
+            _authorRepository.CreateAuthor(new Author { Id = id, Name = name });
+            return Ok();
         }
     }
 }

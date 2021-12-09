@@ -1,9 +1,11 @@
 ﻿using Demo.Dal.Books;
 using Microsoft.AspNetCore.Mvc;
+using WebApiDemo.Filters;
 using WebApiDemo.Models;
 
 namespace WebApiDemo.Controllers
 {
+    [CustomExceptionFilter]
     [ApiController]
     [Route("[controller]")]
     public class BookController : Controller
@@ -24,15 +26,8 @@ namespace WebApiDemo.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]CreateBookModel model)
         {
-            try
-            {
-                _bookRepository.CreateBook(new Book { Id = model.Id, Name = model.Name });
-                return Ok();
-            }
-            catch (System.Exception)
-            {
-                return BadRequest(model);
-            }
+            _bookRepository.CreateBook(new Book { Id = model.Id, Name = model.Name });
+            return Ok();
         }
     }
 }
