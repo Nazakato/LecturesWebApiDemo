@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace WebApiDemo.Filters
 {
-    public class AddTimestampActionFilter : ActionFilterAttribute
+    public class LogToDebugActionFilter : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
