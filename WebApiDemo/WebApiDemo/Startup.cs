@@ -1,9 +1,13 @@
+using Demo.Administration;
+using Demo.Administration.Account;
 using Demo.Dal.Authors;
 using Demo.Dal.Books;
 using Demo.Dal.InMemory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +29,15 @@ namespace WebApiDemo
         {
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddDbContext<AdministrationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AdministrationDB")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 5;
+            }).AddEntityFrameworkStores<AdministrationDbContext>();
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -47,9 +60,8 @@ namespace WebApiDemo
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
