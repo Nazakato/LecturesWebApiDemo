@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApiDemo.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
