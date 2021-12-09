@@ -16,6 +16,7 @@ namespace WebApiDemo.Controllers
             _authorRepository = authorRepository;
         }
 
+        [AddTimestampActionFilter]
         [HttpGet]
         public IActionResult Get()
         {
