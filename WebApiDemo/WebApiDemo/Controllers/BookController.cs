@@ -24,6 +24,7 @@ namespace WebApiDemo.Controllers
         }
 
         [HttpPost]
+        [ModelStateActionFilter]
         public IActionResult Post([FromBody]CreateBookModel model)
         {
             _bookRepository.CreateBook(new Book { Id = model.Id, Name = model.Name });
