@@ -4,7 +4,6 @@ using WebApiDemo.Filters;
 
 namespace WebApiDemo.Controllers
 {
-    [CustomExceptionFilter]
     [ApiController]
     [Route("[controller]")]
     public class AuthorController : Controller

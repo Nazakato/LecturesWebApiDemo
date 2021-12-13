@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebApiDemo.Filters;
 
 namespace WebApiDemo
 {
@@ -29,7 +30,7 @@ namespace WebApiDemo
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
 
-            services.AddControllers();
+            services.AddControllers(options => { options.Filters.Add<CustomExceptionFilterAttribute>(); });
 
             services.AddSwaggerGen();
         }
