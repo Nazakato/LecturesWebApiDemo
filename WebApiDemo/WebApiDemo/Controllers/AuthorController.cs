@@ -32,8 +32,9 @@ namespace WebApiDemo.Controllers
         [HttpGet("create")]
         public IActionResult Create([FromQuery]int id, [FromQuery]string name)
         {
-            _authorRepository.CreateAuthor(new Author { Id = id, Name = name });
-            return Ok();
+            var model = new Author { Id = id, Name = name };
+            _authorRepository.CreateAuthor(model);
+            return Created("/author/" + id, model);
         }
     }
 }
