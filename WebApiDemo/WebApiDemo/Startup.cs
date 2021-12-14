@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApiDemo.Filters;
+using WebApiDemo.Helpers;
 
 namespace WebApiDemo
 {
@@ -39,9 +40,11 @@ namespace WebApiDemo
                 options.Password.RequiredLength = 5;
             }).AddEntityFrameworkStores<AdministrationDbContext>();
 
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
+
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                );
+            );
 
             services.AddControllers(options => { options.Filters.Add<CustomExceptionFilterAttribute>(); });
 

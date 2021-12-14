@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,12 @@ namespace Demo.Administration.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        //private SignInManager<ApplicationUser> _signInManager;
 
         public UserService(UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager)//, SignInManager<ApplicationUser> signInManager)
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            //_signInManager = signInManager;
         }
 
         public async Task Register(Register user)
@@ -72,6 +71,11 @@ namespace Demo.Administration.Account
         public async Task<IEnumerable<IdentityRole>> GetRoles()
         {
             return await _roleManager.Roles.ToListAsync();
+        }
+
+        public async Task<IEnumerable<string>> GetRoles(ApplicationUser user)
+        {
+            return (await _userManager.GetRolesAsync(user)).ToList();
         }
     }
 }

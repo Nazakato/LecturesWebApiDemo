@@ -1,7 +1,9 @@
 ﻿using Demo.Administration.Account;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using WebApiDemo.Filters;
+using WebApiDemo.Helpers;
 using WebApiDemo.Models.Account;
 
 namespace WebApiDemo.Controllers
@@ -12,10 +14,14 @@ namespace WebApiDemo.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
+        private readonly JwtSettings _jwtSettings;
 
-        public AccountController(IUserService userService)
+        public AccountController(
+            IUserService userService,
+            IOptionsSnapshot<JwtSettings> jwtSettings)
         {
             _userService = userService;
+            _jwtSettings = jwtSettings.Value;
         }
 
         [HttpPost("register")]
@@ -44,7 +50,9 @@ namespace WebApiDemo.Controllers
 
             if (user is null) return BadRequest();
 
-            return Ok();
+            var roles = await _userService.GetRoles(user);
+
+            return Ok(JwtHelper.GenerateJwt(user, roles, _jwtSettings));
         }
 
         [HttpPost("createRole")]

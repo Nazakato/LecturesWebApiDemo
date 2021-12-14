@@ -10,6 +10,7 @@ namespace Demo.Administration.Account
         Task<ApplicationUser> Logon(Logon logon);
         Task AssignUserToRoles(AssignUserToRoles assignUserToRoles);
         Task CreateRole(string roleName);
+        Task<IEnumerable<string>> GetRoles(ApplicationUser user);
         Task<IEnumerable<IdentityRole>> GetRoles();
     }
 }
