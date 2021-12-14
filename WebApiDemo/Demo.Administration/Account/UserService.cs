@@ -1,5 +1,4 @@
-﻿using Demo.Administration.Account.Register;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,7 +15,7 @@ namespace Demo.Administration.Account
             //_signInManager = signInManager;
         }
 
-        public async Task Register(RegisterModel user)
+        public async Task Register(Register user)
         {
             var result = await _userManager.CreateAsync(new ApplicationUser
             {
@@ -30,6 +29,14 @@ namespace Demo.Administration.Account
             {
                 throw new System.Exception(string.Join(';', result.Errors.Select(x => x.Description)));
             }
+        }
+
+        public async Task<ApplicationUser> Logon(Logon logon)
+        {
+            var user = _userManager.Users.SingleOrDefault(u => u.UserName == logon.Email);
+            if (user is null) return null;
+
+            return await _userManager.CheckPasswordAsync(user, logon.Password) ? user : null;
         }
     }
 }

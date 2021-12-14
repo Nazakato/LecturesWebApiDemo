@@ -1,6 +1,6 @@
-﻿namespace Demo.Administration.Account.Register
+﻿namespace Demo.Administration.Account
 {
-    public class RegisterModel
+    public class Register
     {
         public string Email { get; set; }
         public int Year { get; set; }
