@@ -27,14 +27,19 @@ namespace WebApiDemo
     {
         public Startup(IConfiguration configuration)
         {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
             Log.Logger = new LoggerConfiguration()
-              .Enrich.FromLogContext()
-              .WriteTo.Console()
-              .MinimumLevel.Information() // Default
-              .WriteTo.File("logs_.txt",
-                rollingInterval: RollingInterval.Minute, // Default - Infinite
-                fileSizeLimitBytes: null, // Default - 1 GB
-                retainedFileCountLimit: null) // max amount of files in directory
+              .ReadFrom.Configuration(config)
+              //.Enrich.FromLogContext()
+              //.WriteTo.Console()
+              //.MinimumLevel.Information() // Default
+              //.WriteTo.File("logs_.txt",
+              //  rollingInterval: RollingInterval.Minute, // Default - Infinite
+              //  fileSizeLimitBytes: null, // Default - 1 GB
+              //  retainedFileCountLimit: null) // max amount of files in directory
               .CreateLogger();
 
             Configuration = configuration;
