@@ -2,7 +2,7 @@ using Demo.Administration;
 using Demo.Administration.Account;
 using Demo.Dal.Authors;
 using Demo.Dal.Books;
-using Demo.Dal.InMemory;
+using Demo.Dal.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -55,6 +55,9 @@ namespace WebApiDemo
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddDbContext<ILibraryContext, LibraryContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LibraryDB")));
 
             services.AddDbContext<AdministrationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AdministrationDB")));

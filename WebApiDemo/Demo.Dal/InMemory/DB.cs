@@ -31,10 +31,10 @@ namespace Demo.Dal.InMemory
                 new Book { Id = 2, Name = "Eragon" }
             };
 
-            Authors[0].Books = new List<Book> { Books[0] };
-            Books[0].Authors = new List<Author> { Authors[0] };
-            Authors[1].Books = new List<Book> { Books[1] };
-            Books[1].Authors = new List<Author> { Authors[1] };
+            //Authors[0].Books = new List<Book> { Books[0] };
+            //Books[0].Authors = new List<Author> { Authors[0] };
+            //Authors[1].Books = new List<Book> { Books[1] };
+            //Books[1].Authors = new List<Author> { Authors[1] };
         }
     }
 }

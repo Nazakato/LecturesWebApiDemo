@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Demo.Dal.Books;
+using Demo.Dal.Connections;
 
 namespace Demo.Dal.Authors
 {
@@ -7,6 +8,6 @@ namespace Demo.Dal.Authors
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Book> Books { get; set; }
+        public ICollection<AuthorBook> Books { get; set; }
     }
 }
